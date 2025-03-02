@@ -12,10 +12,13 @@ const GET = async (req: Request, context: { params: Params }) => {
   if (!username) Response.json({ status: 404 });
 
   try {
-    const regex = new RegExp(`^${username}`)
-    const users = await Users.find({
-      username: { $regex: regex, $options: "i" },
-    });
+    const regex = new RegExp(`^${username}`);
+    const users = await Users.find(
+      {
+        username: { $regex: regex, $options: "i" },
+      },
+      { password: 0, email: 0, name: 0 }
+    );
     return Response.json(users, { status: 200 });
   } catch (error) {
     return Response.json(error);
