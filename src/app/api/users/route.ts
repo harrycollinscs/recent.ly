@@ -1,7 +1,7 @@
 import dbConnect from "@app/lib/mongodb";
 import Users from "@app/api/_models/user";
 
-
+// TODO remove eventually or make private
 const GET = async () => {
   await dbConnect();
 

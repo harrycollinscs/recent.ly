@@ -13,6 +13,22 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  emailVerified: {
+    type: Boolean,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    required: true,
+  },
+  updatedAt: {
+    type: Date,
+    required: true,
+  },
   password: {
     type: String,
     required: true,

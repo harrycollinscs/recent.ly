@@ -32,7 +32,7 @@ const NavigationBar = () => (
 
     <ul>
       {NavLinks.map(({ title, href }) => (
-        <Link href={href}>
+        <Link href={href} key={title}>
           <li key={title}>{title}</li>
         </Link>
       ))}

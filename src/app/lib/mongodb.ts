@@ -1,13 +1,13 @@
 // lib/mongodb.js
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI ?? '';
+const MONGODB_URI = process.env.MONGODB_URI ?? "";
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable');
+  throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-/** 
+/**
  * Cached connection for MongoDB.
  */
 let cached = global.mongoose;
