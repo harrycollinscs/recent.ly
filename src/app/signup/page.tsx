@@ -3,12 +3,26 @@ import { authClient } from "@app/lib/auth-client";
 import { useState } from "react";
 
 const SignUp = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
-  const [image, setImage] = useState('')
-  
+  const [email, setEmail] = useState("TEST1@gmail.com");
+  const [password, setPassword] = useState("@Test");
+  const [name, setName] = useState("TEST1 Collins");
+  const [username, setUsername] = useState("TEST1");
+  const [image, setImage] = useState("");
+
+  const {
+    data: session,
+    isPending, //loading state
+    error, //error object
+    refetch, //refetch the session
+  } = authClient.useSession();
+
+  console.log({
+    session,
+    isPending,
+    error,
+    refetch,
+  });
+
   const handleSignUp = async () => {
     const { data, error } = await authClient.signUp.email(
       {
@@ -35,8 +49,9 @@ const SignUp = () => {
     );
 
     console.log({
-      data, error
-    })
+      data,
+      error,
+    });
   };
 
   return <button onClick={handleSignUp}>Hey</button>;

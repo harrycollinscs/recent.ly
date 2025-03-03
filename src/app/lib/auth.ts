@@ -5,13 +5,6 @@ import { MongoClient } from "mongodb";
 
 const client = new MongoClient(process.env.MONGODB_URI ?? '');
 
-// export async function connectToDatabase() {
-//     if (!client.isConnected()) {
-//         await client.connect();
-//     }
-//     return client.db("testdb");
-// }
-
 client.connect();
 export const db = client.db();
 
@@ -23,31 +16,15 @@ export const auth = betterAuth({
   user: {
     modelName: "users",
     additionalFields: {
-      name: {
-        type: "string",
-        required: false,
-        input: true,
-      },
       username: {
         type: "string",
         required: true,
         input: true,
       },
-      // email: {
-      //   type: "string",
-      //   required: true,
-      //   input: true,
-      // },
-      // password: {
-      //   type: "string",
-      //   required: true,
-      //   input: true,
-      // },
       following: {
         type: ["string"],
         required: true,
         defaultValue: [],
-        input: true,
       },
     },
   },
