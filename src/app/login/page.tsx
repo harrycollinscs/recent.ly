@@ -1,54 +1,11 @@
 "use client";
 import { authClient } from "@app/lib/auth-client";
-import { useState } from "react";
+import { redirect } from "next/navigation";
+import { FormEvent, useState } from "react";
+import { BarLoader, MoonLoader } from "react-spinners";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-
-  const { data: session, isPending, error, refetch } = authClient.useSession();
-
-  console.log({
-    session,
-    isPending,
-    error,
-    refetch,
-  });
-
-  const handleSignUp = async (event: Event) => {
-    event.preventDefault();
-
-    const { data, error } = await authClient.signUp.email(
-      {
-        email, // user email address
-        password, // user password -> min 8 characters by default
-        name, // user display name
-        username,
-        image: "", // user image url (optional)
-        following: [],
-        callbackURL: "/dashboard", // a url to redirect to after the user verifies their email (optional)
-      },
-      {
-        onRequest: (ctx) => {
-          //show loading
-        },
-        onSuccess: (ctx) => {
-          //redirect to the dashboard or sign in page
-        },
-        onError: (ctx) => {
-          // display the error message
-          alert(ctx.error.message);
-        },
-      }
-    );
-
-    console.log({
-      data,
-      error,
-    });
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   const inputStyle = {
     height: "3em",
@@ -60,48 +17,141 @@ const SignUp = () => {
   const buttonStyle = {
     width: "100%",
     height: "3em",
-    border: '1px solid white',
-    borderRadisu: '1em'
+    border: "1px solid white",
+    borderRadisu: "1em",
+  };
+
+  const handleSignUp = async (
+    name: string,
+    username: string,
+    email: string,
+    password: string
+  ) => {
+    await authClient.signUp.email(
+      {
+        name,
+        username,
+        email,
+        password,
+        image: "",
+        following: [],
+        callbackURL: "/",
+      },
+      {
+        onRequest: (ctx) => {
+          setIsLoading(true);
+        },
+        onSuccess: (ctx) => {
+          setIsLoading(false);
+          redirect("/");
+        },
+        onError: (ctx) => {
+          alert(ctx.error.message);
+          setIsLoading(false);
+        },
+      }
+    );
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const target = event.target as HTMLTextAreaElement;
+
+    handleSignUp(
+      target?.[0]?.value,
+      target?.[1]?.value,
+      target?.[2]?.value,
+      target?.[3]?.value
+    );
   };
 
   return (
-    <div
+    <main
       style={{
-        height: "50vh",
-        width: "24em",
-        borderRadius: 20,
-        background: "black",
-        textAlign: "center",
-        alignContent: "center",
-        padding: "4em",
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
+        justifyContent: "center",
+        height: "100%",
       }}
     >
-      <h1 style={{}}>Sign in</h1>
+      <div
+        style={{
+          height: "50vh",
+          width: "24em",
+          borderRadius: 20,
+          background: "black",
+          textAlign: "center",
+          alignContent: "center",
+          alignSelf: "center",
+          padding: "4em",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <h1>Sign in</h1>
 
-      <form className="inputs-form">
-        <div className="field">
-          <label title="Name" />
-          <input
-            type="text"
-            required
-            id="name"
-            // value={name}
-            onChange={(e) => console.log(e)}
-            style={inputStyle}
-          />
-        </div>
+        <form className="inputs-form" onSubmit={handleSubmit}>
+          <div>
+            <label title="Name" />
+            <input
+              type="text"
+              required
+              id="name"
+              placeholder="Name"
+              style={inputStyle}
+            />
+          </div>
 
-        <div className="field">
-          <label title="Password" />
-          <input type="password" required id="password" style={inputStyle} />
-        </div>
+          <div>
+            <label title="Username" />
+            <input
+              type="text"
+              required
+              id="username"
+              placeholder="Username"
+              style={inputStyle}
+            />
+          </div>
 
-        <input type="submit" style={buttonStyle} />
-      </form>
-    </div>
+          <div>
+            <label title="Email" />
+            <input
+              type="text"
+              required
+              id="email"
+              placeholder="Email"
+              style={inputStyle}
+            />
+          </div>
+
+          <div className="field">
+            <label title="Password" />
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              required
+              style={inputStyle}
+            />
+          </div>
+
+          {isLoading ? (
+            <div
+              style={{
+                display: "flex",
+                width: '100%',
+                justifyContent: "center",
+                height: "2em",
+              }}
+            >
+              <BarLoader color="#fff" />
+            </div>
+          ) : (
+            <input type="submit" style={buttonStyle} />
+          )}
+        </form>
+      </div>
+    </main>
   );
 };
 

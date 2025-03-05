@@ -37,11 +37,15 @@ const RootLayout = async ({
     redirect("/login");
   }
 
+  if (session && currentPath === "/login") {
+    redirect("/");
+  }
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <NavigationBar />
+          {!!session && <NavigationBar />}
           <main className="main-container">{children}</main>
         </div>
       </body>
