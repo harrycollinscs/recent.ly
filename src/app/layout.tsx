@@ -33,11 +33,11 @@ const RootLayout = async ({
     headers: await headers(), // you need to pass the headers object.
   });
 
-  if (!session && currentPath !== "/login") {
-    redirect("/login");
+  if (!session && currentPath !== "/signin") {
+    redirect("/signin");
   }
 
-  if (session && currentPath === "/login") {
+  if (session && currentPath === "/signin") {
     redirect("/");
   }
 
