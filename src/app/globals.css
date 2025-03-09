@@ -24,42 +24,8 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--link);
   text-decoration: none;
-}
-
-nav {
-  height: 100vh;
-  width: 15rem;
-  background-color: var(--background--primary);
-
-  .logo-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 1rem 1rem;
-    margin-bottom: 2rem;
-  }
-
-  p {
-    font-size: 1.5rem;
-  }
-
-  ul {
-    align-items: center;
-    padding: 2rem;
-
-    li {
-      list-style-type: none;
-      text-align: center;
-      padding: 0.5rem 0.5rem;
-      margin-bottom: 0.5rem;
-      border-radius: 0.5rem;
-      background-color: #202020;
-    }
-  }
 }
 
 .main-container {
@@ -67,6 +33,10 @@ nav {
   min-height: 100vh;
   padding: 4rem 5rem;
   background-color: var(--background-secondary);
+
+  @media only screen and (max-width: 600px) {
+    padding: 0;
+  }
 }
 
 .home-header {

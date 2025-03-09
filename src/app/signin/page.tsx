@@ -10,13 +10,6 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const inputStyle = {
-    height: "3em",
-    padding: "1em",
-    marginBottom: "2em",
-    width: "100%",
-  };
-
   const handleSignUp = async (
     name: string,
     username: string,
@@ -63,7 +56,7 @@ const SignIn = () => {
         },
         onSuccess: (ctx) => {
           setIsLoading(false);
-          redirect("/");
+          window.location.href = "/";
         },
         onError: (ctx) => {
           console.log(ctx.error);
@@ -95,18 +88,12 @@ const SignIn = () => {
       <div className="sign-up-container">
         <h1>Sign {isSignUp ? "up" : "in"}</h1>
 
-        <form className="inputs-form" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           {isSignUp && (
             <>
               <div>
                 <label title="Name" />
-                <input
-                  type="text"
-                  required
-                  id="name"
-                  placeholder="Name"
-                  style={inputStyle}
-                />
+                <input type="text" required id="name" placeholder="Name" />
               </div>
 
               <div>
@@ -116,7 +103,6 @@ const SignIn = () => {
                   required
                   id="username"
                   placeholder="Username"
-                  style={inputStyle}
                 />
               </div>
             </>
@@ -124,23 +110,16 @@ const SignIn = () => {
 
           <div>
             <label title="Email" />
-            <input
-              type="text"
-              required
-              id="email"
-              placeholder="Email"
-              style={inputStyle}
-            />
+            <input type="text" required id="email" placeholder="Email" />
           </div>
 
-          <div className="field">
+          <div>
             <label title="Password" />
             <input
               type="password"
               placeholder="Password"
               id="password"
               required
-              style={inputStyle}
             />
           </div>
 
@@ -160,7 +139,7 @@ const SignIn = () => {
           )}
         </form>
 
-        <div style={{ marginTop: "2em" }}>
+        <div style={{}}>
           {isSignUp ? (
             <>
               <p>If you have an account, </p>

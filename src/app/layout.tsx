@@ -30,7 +30,7 @@ const RootLayout = async ({
   const currentPath = headersList.get("x-current-path");
 
   const session = await auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
+    headers: await headers(),
   });
 
   if (!session && currentPath !== "/signin") {
@@ -44,7 +44,7 @@ const RootLayout = async ({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div style={{ display: "flex", flexDirection: "row" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           {!!session && <NavigationBar />}
           <main className="main-container">{children}</main>
         </div>
