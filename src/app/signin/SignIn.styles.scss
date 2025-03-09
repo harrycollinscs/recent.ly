@@ -1,0 +1,22 @@
+@use "@app/styles/globalTheme";
+
+.container {
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.sign-up-container {
+  height: 60vh;
+  width: 30em;
+  border-radius: 20px;
+  background-color: var(--background-primary);
+  text-align: center;
+  align-content: center;
+  align-self: center;
+  padding: 4em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
