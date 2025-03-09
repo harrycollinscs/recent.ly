@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const AlbumSchema = new mongoose.Schema({
+const BookSchema = new mongoose.Schema({
   _id: {
     type: { $oid: String },
     required: true,
@@ -9,8 +9,16 @@ const AlbumSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  artist: {
+  plot: {
     type: String,
+    required: true,
+  },
+  fullPlot: {
+    type: String,
+    required: true,
+  },
+  released: {
+    type: { $date: { $numberLong: String } },
     required: true,
   },
   writers: {
@@ -19,30 +27,23 @@ const AlbumSchema = new mongoose.Schema({
   },
   genres: {
     type: [String],
-    required: true,
-  },
-  runtime: {
-    type: Number,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  released: {
-    type: { $date: { $numberLong: String } },
-    required: true,
   },
   lastupdated: {
     type: String,
     required: true,
   },
-  year: {
-    type: { $numberInt: String },
+  languages: {
+    type: [String],
+    required: true,
   },
   rated: {
     type: String,
+    required: true,
   },
-});
+  countries: {
+    type: [String],
+    required: true,
+  },
+})
 
-export default mongoose.models.albums || mongoose.model("albums", AlbumSchema);
+export default mongoose.models.books || mongoose.model("books", BookSchema);

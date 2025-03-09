@@ -37,7 +37,7 @@ const Home = async () => {
               {albums?.map((album, index) => (
                 <li key={index}>
                   <div>
-                    <img src={album.poster} />
+                    <img src={album.image} />
                     <p>{album.title}</p>
                   </div>
                   <div />
