@@ -7,7 +7,7 @@ interface Params {
 
 const GET = async (req: Request, context: { params: Params }) => {
   await dbConnect();
-  const { username } = context.params;
+  const { username } = await context.params;
 
   if (!username) Response.json({ status: 404 });
 

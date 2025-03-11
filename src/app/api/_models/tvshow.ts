@@ -1,10 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const TvShowSchema = new mongoose.Schema({
-  _id: {
-    type: { $oid: String },
-    required: true,
-  },
+  _id: Schema.Types.ObjectId,
   title: {
     type: String,
     required: true,
@@ -88,4 +85,5 @@ const TvShowSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.models.tvshows || mongoose.model("tvshows", TvShowSchema);
+export default mongoose.models.tvshows ||
+  mongoose.model("tvshows", TvShowSchema);

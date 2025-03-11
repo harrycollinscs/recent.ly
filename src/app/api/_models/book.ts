@@ -1,10 +1,8 @@
 import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const BookSchema = new mongoose.Schema({
-  _id: {
-    type: { $oid: String },
-    required: true,
-  },
+  _id: Schema.Types.ObjectId,
   title: {
     type: String,
     required: true,
@@ -44,6 +42,6 @@ const BookSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-})
+});
 
 export default mongoose.models.books || mongoose.model("books", BookSchema);

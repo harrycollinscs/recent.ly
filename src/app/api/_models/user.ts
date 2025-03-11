@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const UserSchema = new mongoose.Schema({
+  _id: Schema.Types.ObjectId,
   name: {
     type: String,
     required: true,
@@ -33,10 +34,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  following: {
-    type: [{ _id: { type: { $oid: String }, required: true } }],
-    default: [],
+  followingCount: {
+    type: Number,
     required: true,
+    default: 0,
+  },
+  followerCount: {
+    type: Number,
+    required: true,
+    default: 0,
   },
 });
 

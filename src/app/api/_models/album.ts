@@ -1,10 +1,8 @@
 import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const AlbumSchema = new mongoose.Schema({
-  _id: {
-    type: { $oid: String },
-    required: true,
-  },
+  _id: Schema.Types.ObjectId,
   title: {
     type: String,
     required: true,
