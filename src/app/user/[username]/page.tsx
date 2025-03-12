@@ -66,12 +66,12 @@ const UserProfile = ({ params }: UserProfileProps) => {
       >
         <div>
           <h3>Following</h3>
-          <p>{profileUser.following?.length}</p>
+          <p>{profileUser.followingCount}</p>
         </div>
 
         <div>
           <h3>Followers</h3>
-          <p>{profileUser.followers?.length}</p>
+          <p>{profileUser.followerCount}</p>
         </div>
       </div>
 
@@ -80,7 +80,10 @@ const UserProfile = ({ params }: UserProfileProps) => {
           <CTA
             text="Follow"
             appearance="secondary"
-            onClick={() => handleFollowUser(profileUser._id)}
+            onClick={async () => {
+              await handleFollowUser(profileUser._id)
+              fetchProfileUser()
+            }}
           />
         </div>
       )}
