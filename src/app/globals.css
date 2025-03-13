@@ -24,7 +24,7 @@ body {
 }
 
 a {
-  color: var(--link);
+  color: var(--accent-link);
   text-decoration: none;
 }
 

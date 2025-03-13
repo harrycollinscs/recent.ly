@@ -1,10 +1,10 @@
 "use client";
-import "./User.styles.scss";
-import { auth } from "@app/lib/auth";
 import CTA from "@app/components/atoms/CTA";
 import handleFollowUser from "@app/helpers/handleFollowUser";
+import handleUnfollowUser from "@app/helpers/handleUnfollowUser";
 import { authClient } from "@app/lib/auth-client";
 import { use, useEffect, useState } from "react";
+import "./User.styles.scss";
 
 interface UserProfileProps {
   params: Promise<{ username: string }>;
@@ -12,13 +12,14 @@ interface UserProfileProps {
 
 const UserProfile = ({ params }: UserProfileProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false)
+  const [isPending, setIsPending] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [profileUser, setProfileUser] = useState(undefined);
   const { username } = use(params);
 
   const {
     data: session,
-    isPending,
+    isPending: sessionIsPending,
     error: sessionError,
     refetch,
   } = authClient.useSession();
@@ -26,26 +27,29 @@ const UserProfile = ({ params }: UserProfileProps) => {
   const isOwnProfile = session?.user?.username === username;
 
   const fetchProfileUser = async () => {
-    const profileUserResponse = await fetch(
-      `/api/users/${username}`
-    );
+    const profileUserResponse = await fetch(`/api/users/${username}`);
 
     if (profileUserResponse?.status && profileUserResponse.status !== 200) {
-      setHasError(true)
+      setHasError(true);
     }
 
     const user = await profileUserResponse.json();
     setProfileUser(user);
-    setIsLoading(false)
+    setIsLoading(false);
+  };
+
+  const handleFollowAction = async (method: any) => {
+    setIsPending(true);
+    await method(profileUser._id);
+    await fetchProfileUser();
+    setIsPending(false);
   };
 
   useEffect(() => {
     fetchProfileUser();
   }, []);
 
-
-
-  if (isLoading || isPending) {
+  if (isLoading || sessionIsPending) {
     return <p>Loading...</p>;
   }
 
@@ -77,14 +81,20 @@ const UserProfile = ({ params }: UserProfileProps) => {
 
       {!isOwnProfile && (
         <div className="follow-cta-container">
-          <CTA
-            text="Follow"
-            appearance="secondary"
-            onClick={async () => {
-              await handleFollowUser(profileUser._id)
-              fetchProfileUser()
-            }}
-          />
+          {!profileUser.isFollowedByCurrentUser ? (
+            <CTA
+              text="Follow"
+              onClick={() => handleFollowAction(handleFollowUser)}
+              isLoading={isPending}
+            />
+          ) : (
+            <CTA
+              text="Unfollow"
+              appearance="secondary"
+              onClick={() => handleFollowAction(handleUnfollowUser)}
+              isLoading={isPending}
+            />
+          )}
         </div>
       )}
     </div>

@@ -3,7 +3,7 @@ const handleFollowUser = async (userId: string) => {
     method: "POST",
     body: JSON.stringify({ userId }),
   });
-  console.log({ response });
+  return response
 };
 
 export default handleFollowUser;

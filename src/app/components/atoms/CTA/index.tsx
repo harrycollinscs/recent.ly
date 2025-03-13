@@ -1,17 +1,30 @@
-"use client"
+"use client";
 import React from "react";
-import './CTA.styles.scss'
+import "./CTA.styles.scss";
+import { BarLoader } from "react-spinners";
 
 interface CTAProps {
   text: string;
-  type?: "submit" | "reset" | "button" | undefined
-  appearance?: 'primary' | 'secondary'
+  type?: "submit" | "reset" | "button" | undefined;
+  appearance?: "primary" | "secondary";
+  isLoading?: boolean;
   onClick?: () => void;
 }
 
-const CTA = ({ type, onClick, text, appearance = 'primary'}: CTAProps) => (
-  <button className={`button ${appearance}`} type={type} onClick={onClick}>
-    {text}
+const CTA = ({
+  type,
+  text,
+  appearance = "primary",
+  isLoading = false,
+  onClick,
+}: CTAProps) => (
+  <button
+    className={`button ${appearance}`}
+    type={type}
+    onClick={onClick}
+    disabled={isLoading}
+  >
+    {isLoading ? <BarLoader /> : text}
   </button>
 );
 

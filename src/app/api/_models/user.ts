@@ -44,7 +44,6 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
-  followedByCurrentUser: Boolean
 });
 
 export default mongoose.models.users || mongoose.model("users", UserSchema);
