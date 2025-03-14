@@ -1,5 +1,5 @@
 "use client";
-import handleSignOut from "@app/helpers/handleSignOut";
+import handleSignOut from "@app/helpers/api/handleSignOut";
 import Link from "next/link";
 import "./NavigationBar.styles.scss";
 
@@ -8,13 +8,9 @@ const NavLinks = [
     title: "Home",
     href: "/",
   },
-  {
-    title: "History",
-    href: "/history",
-  },
 ];
 
-const NavigationBar = () => (
+const NavigationBar = ({ user }: any) => (
   <nav>
     <p>Recent.ly</p>
 
@@ -24,9 +20,12 @@ const NavigationBar = () => (
           <li key={title}>{title}</li>
         </Link>
       ))}
+      <Link href={`/users/${user.username}`} key={user.username}>
+        <li key="Profile">Profile</li>
+      </Link>
     </ul>
 
-    <Link href="#" onClick={handleSignOut} className="sign-out-link">
+    <Link href="#" onClick={handleSignOut} className="sign-out-link" prefetch={true}>
       Sign out
     </Link>
   </nav>

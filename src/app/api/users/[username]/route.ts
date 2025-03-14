@@ -2,7 +2,7 @@ import Follows from "@app/api/_models/follow";
 import Users from "@app/api/_models/user";
 import { auth } from "@app/lib/auth";
 import dbConnect from "@app/lib/mongodb";
-import { headers } from "next/headers";
+import { headers as getHeaders } from "next/headers";
 
 interface Params {
   username: string;
@@ -12,11 +12,8 @@ const GET = async (req: Request, context: { params: Params }) => {
   await dbConnect();
   const { username } = await context.params;
 
-  if (!username) Response.json({ status: 404 });
-
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const headers = await getHeaders()
+  const session = await auth.api.getSession({ headers });
 
   if (!session) {
     return Response.json({

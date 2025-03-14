@@ -29,22 +29,29 @@ const POST = async (req: Request, res: Response) => {
       followingId: followingUserId,
     }).exec();
 
-    if (existingFollow) Response.json({ status: 400, message: 'Already following user' });
+    if (existingFollow) {
+      Response.json({ status: 400, message: "Already following user" });
+    }
 
     await Follows.create({
       followerId: followerUserId,
       followingId: followingUserId,
     });
 
-    await Users.findOneAndUpdate(
-      { _id: session.user.id },
-      { $inc: { followingCount: 1 } }
-    );
+    const followingCount = (
+      await Follows.find({ followerId: followerUserId }).exec()
+    )?.length;
+    const followerCount = (
+      await Follows.find({ followingId: followingUserId }).exec()
+    )?.length;
+
+    console.log({ followingCount, followerCount });
 
     await Users.findOneAndUpdate(
-      { _id: userId },
-      { $inc: { followerCount: 1 } }
-    );
+      { _id: session.user.id },
+      { followingCount }
+    ).exec();
+    await Users.findOneAndUpdate({ _id: userId }, { followerCount }).exec();
 
     return Response.json({}, { status: 200 });
   } catch (error) {

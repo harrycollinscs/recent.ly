@@ -45,7 +45,7 @@ const RootLayout = async ({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          {!!session && <NavigationBar />}
+          {!!session && <NavigationBar user={session.user} />}
           <main className="main-container">{children}</main>
         </div>
       </body>

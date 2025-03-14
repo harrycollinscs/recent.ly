@@ -23,12 +23,10 @@ export const auth = betterAuth({
       },
       followerCount: {
         type: "number",
-        required: true,
         defaultValue: 0,
       },
       followingCount: {
         type: "number",
-        required: true,
         defaultValue: 0,
       },
       image: {

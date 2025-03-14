@@ -24,22 +24,30 @@ const POST = async (req: Request, res: Response) => {
     const followerUserId = await ObjectId.createFromHexString(session.user.id);
     const followingUserId = await ObjectId.createFromHexString(userId);
 
-    const followFound = await Follows.findOneAndDelete({
+    const followFound = await Follows.findOne({
       followerId: followerUserId,
       followingId: followingUserId,
     }).exec();
 
-    if (!followFound) Response.json({ status: 400, message: 'Not following this user' });
+    if (!followFound) {
+      Response.json({ status: 400, message: "Not following this user" });
+    }
+
+    await followFound.deleteOne().exec();
+
+    const followingCount = (
+      await Follows.find({ followerId: followerUserId }).exec()
+    )?.length;
+    const followerCount = (
+      await Follows.find({ followingId: followingUserId }).exec()
+    )?.length;
 
     await Users.findOneAndUpdate(
       { _id: session.user.id },
-      { $inc: { followingCount: -1 } }
+      { followingCount }
     ).exec();
 
-    await Users.findOneAndUpdate(
-      { _id: userId },
-      { $inc: { followerCount: -1 } }
-    ).exec();
+    await Users.findOneAndUpdate({ _id: userId }, { followerCount }).exec();
 
     return Response.json({}, { status: 200 });
   } catch (error) {
