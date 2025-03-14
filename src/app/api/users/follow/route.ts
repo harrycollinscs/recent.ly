@@ -3,11 +3,15 @@ import Users from "@app/api/_models/user";
 import { auth } from "@app/lib/auth";
 import dbConnect from "@app/lib/mongodb";
 import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 import { headers } from "next/headers";
 
 const POST = async (req: Request, res: Response) => {
   await dbConnect();
   const { userId } = (await req.json()) || {};
+
+  const dbSession = await mongoose.startSession();
+  dbSession.startTransaction(); // Start a transaction
 
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -30,7 +34,8 @@ const POST = async (req: Request, res: Response) => {
     }).exec();
 
     if (existingFollow) {
-      Response.json({ status: 400, message: "Already following user" });
+      await dbSession.abortTransaction();
+      return Response.json({ status: 400, message: "Already following user" });
     }
 
     await Follows.create({
@@ -45,13 +50,13 @@ const POST = async (req: Request, res: Response) => {
       await Follows.find({ followingId: followingUserId }).exec()
     )?.length;
 
-    console.log({ followingCount, followerCount });
-
     await Users.findOneAndUpdate(
       { _id: session.user.id },
       { followingCount }
     ).exec();
     await Users.findOneAndUpdate({ _id: userId }, { followerCount }).exec();
+
+    await dbSession.commitTransaction();
 
     return Response.json({}, { status: 200 });
   } catch (error) {
