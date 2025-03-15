@@ -3,20 +3,25 @@
 import CTA from "@app/components/atoms/CTA";
 import handleFollowUser from "@app/helpers/api/handleFollowUser";
 import handleUnfollowUser from "@app/helpers/api/handleUnfollowUser";
-import { useRouter } from "next/navigation";
+import { useRouterRefresh } from "@app/helpers/useRouterRefresh";
 import { useState } from "react";
 
-const ProfileHeader = ({ user, isOwnProfile }) => {
+interface ProfileHeaderProps {
+  user: any;
+  isOwnProfile: boolean;
+}
+
+const ProfileHeader = ({ user, isOwnProfile }: ProfileHeaderProps) => {
   const [isPending, setIsPending] = useState(false);
-  const router = useRouter();
+  const refresh = useRouterRefresh();
 
   const handleFollowAction = async (method: any) => {
     setIsPending(true);
     await method(user._id);
-    // await Promise.all([
-    await router.refresh();
-    // ])
-    setIsPending(false);
+
+    refresh().then(() => {
+      setIsPending(false);
+    });
   };
 
   return (
