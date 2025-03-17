@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Fab } from "react-tiny-fab";
 import "./AddPostFab.styles.scss";
+import handleCreatePost from "@app/helpers/api/handleCreatePost";
 
 const AddPostFab = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,6 +35,11 @@ const AddPostFab = () => {
     } else {
       setSearchResults([]);
     }
+  };
+
+  const handlePostClick = async (media: any) => {
+    const { _id, type } = media;
+    await handleCreatePost(_id, type);
   };
 
   return (
@@ -89,7 +95,9 @@ const AddPostFab = () => {
                         </div>
                       </div>
 
-                      <button>+</button>
+                      <button onClick={() => handlePostClick(result)}>
+                        +
+                      </button>
                     </li>
                   );
                 })}

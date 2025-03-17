@@ -10,6 +10,10 @@ const GameSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
   developers: {
     type: [String],
     required: true,
@@ -51,4 +55,4 @@ const GameSchema = new mongoose.Schema({
   },
 })
 
-export default mongoose.models.game || mongoose.model("game", GameSchema);
+export default mongoose.models.games || mongoose.model("games", GameSchema);

@@ -26,6 +26,10 @@ const BookSchema = new mongoose.Schema({
   genres: {
     type: [String],
   },
+  type: {
+    type: String,
+    required: true,
+  },
   lastupdated: {
     type: String,
     required: true,

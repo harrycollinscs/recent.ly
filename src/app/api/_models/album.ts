@@ -19,6 +19,10 @@ const AlbumSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
   runtime: {
     type: Number,
     required: true,
