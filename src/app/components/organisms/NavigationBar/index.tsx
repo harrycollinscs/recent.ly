@@ -24,9 +24,10 @@ const UserListItem = ({ user, onClick }) => {
           if (onClick) onClick();
         }}
       >
-        <img src={image} style={{ height: "2rem", width: "2rem" }} />
+        <img src={image} />
         {username}
       </Link>
+      <div />
     </li>
   );
 };
@@ -91,11 +92,12 @@ const NavigationBar = ({ user }: any) => {
 
         {!!searchResults?.length && inputIsFocused && (
           <div className="app-search-results">
-            <ul className="app-search-results-list">
+            <ul className="app-search-results-list" key="search-list">
               {searchResults.map((user) => (
                 <UserListItem
                   user={user}
                   onClick={() => setInputIsFocused(false)}
+                  key={user.username}
                 />
               ))}
             </ul>

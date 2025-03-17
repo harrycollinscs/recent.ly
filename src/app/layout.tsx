@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import NavigationBar from "./components/organisms/NavigationBar";
 import "./globals.css";
 import { auth } from "./lib/auth";
+import 'react-tiny-fab/dist/styles.css';
+import AddPostFab from "./components/atoms/AddPostFab";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +49,7 @@ const RootLayout = async ({
         <div style={{ display: "flex", flexDirection: "column" }}>
           {!!session && <NavigationBar user={session.user} />}
           <main className="main-container">{children}</main>
+          <AddPostFab />
         </div>
       </body>
     </html>

@@ -39,7 +39,7 @@ const TvShowSchema = new mongoose.Schema({
     required: true,
   },
   released: {
-    type: { $date: { $numberLong: String } },
+    type: String,
     required: true,
   },
   lastupdated: {

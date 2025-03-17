@@ -31,7 +31,7 @@ a {
 .main-container {
   width: 100%;
   min-height: 100vh;
-  padding: 4rem 5rem;
+  padding: 3rem;
   background-color: var(--background-secondary);
 
   @media only screen and (max-width: 600px) {
@@ -63,58 +63,6 @@ a {
   display: grid;
   grid-template-columns: 6fr 4fr;
   align-items: center;
-
-  .artist-search-container {
-    height: 100%;
-    width: 100%;
-    padding: 2rem;
-    background-color: #161617;
-    align-self: center;
-    border-radius: 1.5rem;
-
-    .artist-results-list {
-      margin-top: 3rem;
-      height: 20rem;
-      width: 100%;
-      overflow-y: scroll;
-
-      li {
-        div:nth-child(1) {
-          display: flex;
-          flex-direction: row;
-          margin-bottom: 1rem;
-          margin-top: 1rem;
-
-          img {
-            object-fit: cover;
-            height: 3.5rem;
-            width: 3.5rem;
-            border-radius: 0.5rem;
-          }
-
-          p {
-            font-size: 1.5rem;
-            margin-left: 2rem;
-          }
-        }
-
-        div:nth-child(2) {
-          width: 100%;
-          height: 0.1px;
-          background-color: #616161;
-          margin-left: 5.5rem;
-        }
-      }
-    }
-  }
-
-  .playlist-selection-container {
-    height: 100%;
-    width: 100%;
-    padding: 2rem;
-    background-color: #161617;
-    border-radius: 1.5rem;
-  }
 }
 
 .title {

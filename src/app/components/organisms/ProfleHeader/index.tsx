@@ -1,5 +1,4 @@
 "use client";
-
 import CTA from "@app/components/atoms/CTA";
 import handleFollowUser from "@app/helpers/api/handleFollowUser";
 import handleUnfollowUser from "@app/helpers/api/handleUnfollowUser";

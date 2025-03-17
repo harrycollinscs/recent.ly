@@ -1,8 +1,17 @@
+.recents-section {
+  background-color: var(--background-primary);
+  padding: 2rem;
+  border-radius: 2rem;
+}
+
 .header {
   display: grid;
   width: 100%;
   grid-template-columns: repeat(4, 1fr);
   gap: 5rem;
+  background-color: var(--background-primary);
+  padding: 2rem;
+  border-radius: 2rem;
 
   @media only screen and (max-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
@@ -38,7 +47,7 @@
       grid-row: 1;
       display: flex;
       justify-content: flex-end;
-  
+
       button {
         width: 50%;
       }

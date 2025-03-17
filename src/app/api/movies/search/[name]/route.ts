@@ -13,9 +13,8 @@ const GET = async (req: Request, context: { params: Params }) => {
   if (!name) Response.json({ status: 404 });
 
   try {
-    const regex = new RegExp(`^${name}`);
     const movies = await Movies.find({
-      title: { $regex: regex, $options: "i" },
+      title: { $regex: name, $options: "i" },
     });
     return Response.json(movies, { status: 200 });
   } catch (error) {
