@@ -2,6 +2,7 @@
   --background-primary: #fff;
   --background-secondary: #eee;
   --text-primary: #000;
+  --text-secondary: #999999;
   --accent: #f5b5ff;
   --link: #000;
   --accent-link: #f5b5ff;
@@ -13,6 +14,7 @@
     --background-primary: #000;
     --background-secondary: #121212;
     --text-primary: #fff;
+    --text-secondary: #999999;
     --accent: #f5b5ff;
     --link: #fff;
     --accent-link: #f5b5ff;

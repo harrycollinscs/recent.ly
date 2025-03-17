@@ -35,6 +35,7 @@ const UserListItem = ({ user, onClick }) => {
 const NavigationBar = ({ user }: any) => {
   const [searchResults, setSearchResults] = useState<any[]>();
   const [inputIsFocused, setInputIsFocused] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const containerRef = useRef(null);
   const debouncedFetch = debounce(fetchAndUpdate, 1000, { maxWait: 1 });
 
@@ -46,6 +47,7 @@ const NavigationBar = ({ user }: any) => {
   const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event?.target?.value;
     if (value?.length) {
+      setSearchValue(value);
       debouncedFetch(value);
     } else {
       setSearchResults([]);
@@ -77,7 +79,7 @@ const NavigationBar = ({ user }: any) => {
         </li>
       </ul>
 
-      <div
+      <form
         className="app-search"
         onFocus={() => setInputIsFocused(true)}
         onBlur={onBlurHandler}
@@ -96,14 +98,17 @@ const NavigationBar = ({ user }: any) => {
               {searchResults.map((user) => (
                 <UserListItem
                   user={user}
-                  onClick={() => setInputIsFocused(false)}
+                  onClick={() => {
+                    setInputIsFocused(false);
+                    containerRef.current?.reset();
+                  }}
                   key={user.username}
                 />
               ))}
             </ul>
           </div>
         )}
-      </div>
+      </form>
 
       <Link
         href="#"
