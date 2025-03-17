@@ -1,7 +1,6 @@
 "use client";
 import CTA from "@app/components/atoms/CTA";
 import { authClient } from "@app/lib/auth-client";
-import { redirect } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { BarLoader } from "react-spinners";
 import "./SignIn.styles.scss";
@@ -32,7 +31,9 @@ const SignIn = () => {
         },
         onSuccess: (ctx) => {
           setIsLoading(false);
-          redirect("/");
+          window.location.href = "/";
+
+          // redirect("/");
         },
         onError: (ctx) => {
           alert(ctx.error.message);
@@ -139,7 +140,7 @@ const SignIn = () => {
           )}
         </form>
 
-        <div style={{}}>
+        <div>
           {isSignUp ? (
             <>
               <p>If you have an account, </p>
