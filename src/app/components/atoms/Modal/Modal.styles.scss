@@ -1,0 +1,20 @@
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000;
+}
+
+.modal {
+  height: fit-content;
+  width: fit-content;
+  background-color: var(--background-primary);
+  position: absolute;
+  left: 0; 
+  right: 0; 
+  margin: "auto";
+  padding: 2rem;
+  border-radius: 2rem;
+}

@@ -49,7 +49,7 @@ const RootLayout = async ({
         <div style={{ display: "flex", flexDirection: "column" }}>
           {!!session && <NavigationBar user={session.user} />}
           <main className="main-container">{children}</main>
-          <AddPostFab />
+          {!!session && <AddPostFab />}
         </div>
       </body>
     </html>
