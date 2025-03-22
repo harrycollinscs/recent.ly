@@ -3,18 +3,11 @@ import { auth } from "@app/lib/auth";
 import { headers as getHeaders } from "next/headers";
 import "./User.styles.scss";
 import ProfileHeader from "@app/components/organisms/ProfleHeader";
+import RecentsSection from "@app/components/organisms/RecentsSection";
 
 interface UserProfileProps {
   params: Promise<{ username: string }>;
 }
-
-const RecentsSection = () => {
-  return (
-    <div className='recents-section'>
-      <h1>Recently</h1>
-    </div>
-  );
-};
 
 const UserProfile = async ({ params }: UserProfileProps) => {
   const pathname = await getPathname();
@@ -28,6 +21,7 @@ const UserProfile = async ({ params }: UserProfileProps) => {
 
   const isOwnProfile = session?.user?.username === user?.username;
 
+  console.log({user})
   return (
     <>
       <ProfileHeader user={user} isOwnProfile={isOwnProfile} />

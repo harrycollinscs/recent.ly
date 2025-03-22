@@ -1,8 +1,8 @@
-import Follows from "@app/api/_models/follow";
 import Users from "@app/api/_models/user";
 import handleSession from "@app/helpers/api/handleSession";
 import getSession from "@app/helpers/getSession";
 import dbConnect from "@app/lib/mongodb";
+import { ObjectId } from "mongodb";
 
 interface Params {
   username: string;
@@ -14,26 +14,34 @@ const GET = async (req: Request, context: { params: Params }) => {
   handleSession(session);
 
   const { username } = await context.params;
+  const sessionUserId = await ObjectId.createFromHexString(session.user.id);
 
   try {
-    const user = await Users.findOne(
-      { username },
-      { password: 0, email: 0, name: 0 }
-    ).exec();
+    const user = await Users.aggregate([
+      { $match: { username } },
+      {
+        $lookup: {
+          from: "follows",
+          localField: "_id", // Session user id
+          foreignField: "followingId", // id of user being retrieved
+          pipeline: [{ $match: { followerId: sessionUserId } }], // ensure matching on session user
+          as: "followDocument", // array of matching documents
+        },
+      },
+      {
+        $addFields: {
+          isFollowedByCurrentUser: {
+            $gt: [{ $size: "$followDocument" }, 0], // checks if size of array is 0
+          },
+        },
+      },
+    ]);
 
-    const follow = await Follows.findOne({
-      followerId: session?.user.id,
-      followingId: user.id,
-    }).exec();
-
-    if (!user) {
+    if (!user?.length) {
       return Response.json({ status: 404 });
     }
 
-    return Response.json(
-      { ...user.toObject(), isFollowedByCurrentUser: !!follow },
-      { status: 200 }
-    );
+    return Response.json(user[0], { status: 200 });
   } catch (error) {
     return Response.json(error);
   }

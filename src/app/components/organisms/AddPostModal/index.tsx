@@ -4,7 +4,6 @@ import handleCreatePost from "@app/helpers/api/handleCreatePost";
 import { debounce } from "lodash";
 import { useEffect, useState } from "react";
 import { MoonLoader } from "react-spinners";
-
 import "./AddPostModal.scss";
 
 interface AddPostModalProps {
@@ -57,12 +56,12 @@ const AddPostModal = ({ isOpen, handleModalClose }: AddPostModalProps) => {
       handleClose={handleModalClose}
     >
       <div className="add-post-modal">
-        {/* <h1>Add to your recents</h1> */}
         <div className="pills-container">
           {mediaCategories.map((item) => (
             <button
               className={`pill${item === filter ? "_active" : ""}`}
               onClick={() => setFilter(item)}
+              key={item}
             >
               {item}
             </button>
@@ -83,7 +82,7 @@ const AddPostModal = ({ isOpen, handleModalClose }: AddPostModalProps) => {
               const date = new Date(result.released);
 
               return (
-                <li>
+                <li key={result.title}>
                   <div className="search-item-content">
                     <img src={result.image} />
 
@@ -93,7 +92,11 @@ const AddPostModal = ({ isOpen, handleModalClose }: AddPostModalProps) => {
                     </div>
                   </div>
 
-                  <button onClick={() => handlePostClick(result)}>+</button>
+                  {result.hasUserPosted ? (
+                    <div className="tick">✔</div>
+                  ) : (
+                    <button onClick={() => handlePostClick(result)}>+</button>
+                  )}
                 </li>
               );
             })}

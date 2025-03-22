@@ -49,6 +49,27 @@
           color: var(--text-secondary);
         }
       }
+
+      .tick {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 5rem;
+        background-color: #73a7fa;
+        color: white;
+        align-content: center;
+        text-align: center;
+      }
+
+      button {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 5rem;
+        border: none;
+        border: 2px solid var(--text-secondary);
+        color: var(--text-secondary);
+        font-size: 20;
+        background: none;
+      }
     }
   }
 
