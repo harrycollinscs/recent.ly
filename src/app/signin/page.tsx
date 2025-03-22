@@ -22,7 +22,8 @@ const SignIn = () => {
         email,
         password,
         image: "",
-        following: [],
+        followerCount: 0,
+        followingCount: 0,
         callbackURL: "/",
       },
       {

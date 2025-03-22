@@ -39,12 +39,12 @@ const UserSchema = new mongoose.Schema({
   followingCount: {
     type: Number,
     default: 0,
-    required: false,
+    required: true,
   },
   followerCount: {
     type: Number,
     default: 0,
-    required: false,
+    required: true,
   },
 });
 

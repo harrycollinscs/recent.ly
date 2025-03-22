@@ -1,7 +1,7 @@
 import Post from "@app/api/_models/post";
-import { auth } from "@app/lib/auth";
+import handleSession from "@app/helpers/api/handleSession";
+import getSession from "@app/helpers/getSession";
 import dbConnect from "@app/lib/mongodb";
-import { headers as getHeaders } from "next/headers";
 
 interface Params {
   mediaId: any;
@@ -10,20 +10,13 @@ interface Params {
 
 const POST = async (req: Request, context: { params: Params }) => {
   await dbConnect();
+  const session = await getSession();
+  handleSession(session);
+
   const { mediaId, type } = await req.json();
 
-  const headers = await getHeaders();
-  const session = await auth.api.getSession({ headers });
-
-  if (!session) {
-    return Response.json({
-      message: "You must be logged in to follow a user.",
-      status: 401,
-    });
-  }
-
   try {
-    let Model = await import(`@app/api/_models/${type}`);
+    // let Model = await import(`@app/api/_models/${type}`);
 
     const createdPost = Post.create({
       userId: session.user.id,
