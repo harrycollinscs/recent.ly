@@ -21,7 +21,6 @@ const UserProfile = async ({ params }: UserProfileProps) => {
 
   const isOwnProfile = session?.user?.username === user?.username;
 
-  console.log({user})
   return (
     <>
       <ProfileHeader user={user} isOwnProfile={isOwnProfile} />

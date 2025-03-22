@@ -29,6 +29,14 @@ const GET = async (req: Request, context: { params: Params }) => {
         },
       },
       {
+        $lookup: {
+          foreignField: "userId", // id of user being retrieved
+          from: "posts",
+          localField: "_id", // Session user id
+          as: "userPosts", // array of matching documents
+        },
+      },
+      {
         $addFields: {
           isFollowedByCurrentUser: {
             $gt: [{ $size: "$followDocument" }, 0], // checks if size of array is 0
