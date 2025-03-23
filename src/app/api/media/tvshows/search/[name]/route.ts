@@ -1,4 +1,4 @@
-import Books from "@app/api/_models/book";
+import Media from "@app/api/_models/media";
 import handleSession from "@app/helpers/api/handleSession";
 import mediaSearchAggregate from "@app/helpers/api/model/mediaSearchAggregate";
 import getSession from "@app/helpers/getSession";
@@ -10,15 +10,16 @@ interface Params {
 
 const GET = async (req: Request, context: { params: Params }) => {
   await dbConnect();
-  const session = await getSession();
-  handleSession(session);
 
   const { name } = await context.params;
   if (!name) Response.json({ status: 404 });
 
   try {
-    const books = await mediaSearchAggregate(Books, session?.user, name);
-    return Response.json(books, { status: 200 });
+    const session = await getSession();
+    handleSession(session);
+    
+    const tvshows = await mediaSearchAggregate(Media, "tvshow", session?.user, name);
+    return Response.json(tvshows, { status: 200 });
   } catch (error) {
     return Response.json(error);
   }

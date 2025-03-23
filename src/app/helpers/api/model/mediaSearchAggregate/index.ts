@@ -1,10 +1,16 @@
 import { ObjectId } from "mongodb";
 
-const mediaSearchAggregate = async (model: any, user: any, searchValue: string) => {
+const mediaSearchAggregate = async (
+  model: any,
+  type: string | null,
+  user: any,
+  searchValue: string
+) => {
   return await model.aggregate([
     {
       $match: {
         title: { $regex: searchValue, $options: "i" },
+        ...(type ? { type } : {}),
       },
     },
     {

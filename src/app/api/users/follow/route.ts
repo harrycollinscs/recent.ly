@@ -8,8 +8,6 @@ import mongoose from "mongoose";
 
 const POST = async (req: Request, res: Response) => {
   await dbConnect();
-  const session = await getSession();
-  handleSession(session);
 
   const { userId } = (await req.json()) || {};
 
@@ -17,6 +15,9 @@ const POST = async (req: Request, res: Response) => {
   dbSession.startTransaction(); // Start a transaction
 
   try {
+    const session = await getSession();
+    handleSession(session);
+    
     const followerUserId = await ObjectId.createFromHexString(session.user.id);
     const followingUserId = await ObjectId.createFromHexString(userId);
 

@@ -7,16 +7,19 @@ import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 const POST = async (req: Request, res: Response) => {
-  await dbConnect();
-  const session = await getSession();
-  handleSession(session);
-
   const { userId } = (await req.json()) || {};
+  if (!userId)  Response.json({ status: 404 });
 
-  const dbSession = await mongoose.startSession();
-  dbSession.startTransaction(); // Start a transaction
 
   try {
+    await dbConnect();
+
+    const dbSession = await mongoose.startSession();
+    dbSession.startTransaction(); // Start a transaction
+    
+    const session = await getSession();
+    handleSession(session);
+
     const followerUserId = await ObjectId.createFromHexString(session?.user.id);
     const followingUserId = await ObjectId.createFromHexString(userId);
 

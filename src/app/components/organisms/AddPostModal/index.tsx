@@ -28,7 +28,7 @@ const AddPostModal = ({ isOpen, handleModalClose }: AddPostModalProps) => {
   async function fetchAndUpdate(value: string) {
     setIsLoading(true);
     const type = filter.replace(/\s/g, "").toLowerCase();
-    const res = await (await fetch(`/api/${type}/search/${value}`)).json();
+    const res = await (await fetch(`/api/media/${type}/search/${value}`)).json();
     setSearchResults(res);
     setIsLoading(false);
   }

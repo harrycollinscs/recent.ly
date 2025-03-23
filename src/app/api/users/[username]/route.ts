@@ -9,14 +9,15 @@ interface Params {
 }
 
 const GET = async (req: Request, context: { params: Params }) => {
-  await dbConnect();
-  const session = await getSession();
-  handleSession(session);
-
   const { username } = await context.params;
-  const sessionUserId = await ObjectId.createFromHexString(session.user.id);
 
   try {
+    await dbConnect();
+
+    const session = await getSession();
+    handleSession(session);
+    const sessionUserId = await ObjectId.createFromHexString(session.user.id);
+    
     const user = await Users.aggregate([
       { $match: { username } },
       {

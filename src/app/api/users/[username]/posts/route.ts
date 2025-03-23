@@ -6,12 +6,12 @@ import { ObjectId } from "mongodb";
 
 const GET = async () => {
   await dbConnect();
-  const session = await getSession();
-  handleSession(session);
-
-  const sessionUserId = await ObjectId.createFromHexString(session.user.id);
 
   try {
+    const session = await getSession();
+    handleSession(session);
+    const sessionUserId = await ObjectId.createFromHexString(session.user.id);
+
     // const groupedDocuments = await Posts.aggregate([
     //   {
     //     $group: {
