@@ -17,9 +17,27 @@ const GET = async (req: Request, context: { params: Params }) => {
     const session = await getSession();
     handleSession(session);
     const sessionUserId = await ObjectId.createFromHexString(session.user.id);
-    
-    const user = await Users.aggregate([
-      { $match: { username } },
+
+    const postsQuery = [
+      { // retrieve all user posts from Post collection
+        $lookup: {
+          foreignField: "userId", // id of user being retrieved
+          from: "posts",
+          localField: "_id", // Session user id
+          as: "posts", // array of matching documents
+        },
+      },
+      { // for each post, get media entry and overwrite $posts
+        $lookup: {
+          foreignField: "_id", // id of item in Media collection
+          from: "media",
+          localField: "posts.mediaId", // id of media in Posts collection
+          as: "posts",
+        },
+      },
+    ];
+
+    const followQuery = [
       {
         $lookup: {
           from: "follows",
@@ -29,15 +47,6 @@ const GET = async (req: Request, context: { params: Params }) => {
           as: "followDocument", // array of matching documents
         },
       },
-      // TODO consider if necessary, may just use separate call
-      {
-        $lookup: {
-          foreignField: "userId", // id of user being retrieved
-          from: "posts",
-          localField: "_id", // Session user id
-          as: "userPosts", // array of matching documents
-        },
-      },
       {
         $addFields: {
           isFollowedByCurrentUser: {
@@ -45,6 +54,12 @@ const GET = async (req: Request, context: { params: Params }) => {
           },
         },
       },
+    ];
+
+    const user = await Users.aggregate([
+      { $match: { username } },
+      ...postsQuery,
+      ...followQuery,
     ]);
 
     if (!user?.length) {
