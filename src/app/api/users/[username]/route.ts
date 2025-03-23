@@ -28,6 +28,7 @@ const GET = async (req: Request, context: { params: Params }) => {
           as: "followDocument", // array of matching documents
         },
       },
+      // TODO consider if necessary, may just use separate call
       {
         $lookup: {
           foreignField: "userId", // id of user being retrieved
