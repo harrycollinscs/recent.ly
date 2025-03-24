@@ -1,5 +1,6 @@
 import Users from "@app/api/_models/user";
 import handleSession from "@app/helpers/api/handleSession";
+import postsWithMediaAggregate from "@app/helpers/api/model/postsWithMediaAggregate";
 import getSession from "@app/helpers/getSession";
 import dbConnect from "@app/lib/mongodb";
 import { ObjectId } from "mongodb";
@@ -18,25 +19,6 @@ const GET = async (req: Request, context: { params: Params }) => {
     handleSession(session);
     const sessionUserId = await ObjectId.createFromHexString(session.user.id);
 
-    const postsQuery = [
-      { // retrieve all user posts from Post collection
-        $lookup: {
-          foreignField: "userId", // id of user being retrieved
-          from: "posts",
-          localField: "_id", // Session user id
-          as: "posts", // array of matching documents
-        },
-      },
-      { // for each post, get media entry and overwrite $posts
-        $lookup: {
-          foreignField: "_id", // id of item in Media collection
-          from: "media",
-          localField: "posts.mediaId", // id of media in Posts collection
-          as: "posts",
-        },
-      },
-    ];
-
     const followQuery = [
       {
         $lookup: {
@@ -54,19 +36,31 @@ const GET = async (req: Request, context: { params: Params }) => {
           },
         },
       },
+      { $unset: "followDocument" },
     ];
 
-    const user = await Users.aggregate([
+    const users = await Users.aggregate([
       { $match: { username } },
-      ...postsQuery,
       ...followQuery,
     ]);
 
-    if (!user?.length) {
+    const user = users?.[0];
+    if (!user) {
       return Response.json({ status: 404 });
     }
 
-    return Response.json(user[0], { status: 200 });
+    // TODO move into separate call hmmm
+    user.isCurrentUser = user._id.equals(sessionUserId);
+    user.posts = {
+      all: await postsWithMediaAggregate(null, user),
+      movies: await postsWithMediaAggregate("movie", user),
+      tvshows: await postsWithMediaAggregate("tvshow", user),
+      albums: await postsWithMediaAggregate("album", user),
+      games: await postsWithMediaAggregate("game", user),
+      books: await postsWithMediaAggregate("book", user)
+    };
+
+    return Response.json(user, { status: 200 });
   } catch (error) {
     return Response.json(error);
   }

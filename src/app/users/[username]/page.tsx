@@ -4,6 +4,7 @@ import { headers as getHeaders } from "next/headers";
 import "./User.styles.scss";
 import ProfileHeader from "@app/components/organisms/ProfleHeader";
 import RecentsSection from "@app/components/organisms/RecentsSection";
+import { notFound } from "next/navigation";
 
 interface UserProfileProps {
   params: Promise<{ username: string }>;
@@ -19,13 +20,21 @@ const UserProfile = async ({ params }: UserProfileProps) => {
     (await fetch(`${process.env.BASE_URL}/api${pathname}`, { headers })) || {}
   ).json();
 
-  const isOwnProfile = session?.user?.username === user?.username;
+  if (!user) return notFound();
+
+  const { all, albums, books, games, movies, tvshows } = user.posts || {};
 
   return (
     <>
-      <ProfileHeader user={user} isOwnProfile={isOwnProfile} />
+      <ProfileHeader user={user} isOwnProfile={user.isCurrentUser} />
       <div style={{ marginTop: "2rem" }}>
-        <RecentsSection />
+        <RecentsSection
+          album={albums?.[0]}
+          book={books?.[0]}
+          game={games?.[0]}
+          movie={movies?.[0]}
+          tvshow={tvshows?.[0]}
+        />
       </div>
     </>
   );

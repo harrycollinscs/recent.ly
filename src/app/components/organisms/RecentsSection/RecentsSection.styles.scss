@@ -2,4 +2,47 @@
   background-color: var(--background-primary);
   padding: 2rem;
   border-radius: 1.5rem;
+
+  .posts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 12rem);
+    margin-top: 2rem;
+    gap: 2rem;
+    align-self: center;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
+    
+    > a {
+      width: auto;
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      color: var(--text-primary);
+      align-items: center;
+      text-align: center;
+      width: 8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      h2 {
+        margin-bottom: 1rem;
+        width: 8rem;
+      }
+
+      img {
+        width: 8rem;
+        height: 12rem;
+        object-fit: cover;
+        border-radius: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        width: 8rem;
+      }
+    }
+  }
 }

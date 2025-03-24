@@ -18,7 +18,10 @@ if (!cached) {
 
 async function dbConnect() {
   if (cached.conn) {
+    console.log("USING CACHED DB CONNECTION")
     return cached.conn;
+  } else {
+    console.log("NEW DB CONNECTION")
   }
 
   if (!cached.promise) {
