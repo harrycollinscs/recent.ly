@@ -1,9 +1,10 @@
 import { ObjectId } from "mongodb";
+// ObjectId.createFromHexString(
 
 const mediaSearchAggregate = async (
   model: any,
   type: string | null,
-  user: any,
+  id: any,
   searchValue: string
 ) => {
   return await model.aggregate([
@@ -25,7 +26,7 @@ const mediaSearchAggregate = async (
       $addFields: {
         hasUserPosted: {
           $in: [
-            ObjectId.createFromHexString(user.id), // The value you're checking
+            id, // The value you're checking
             {
               $map: {
                 input: "$userPosts",

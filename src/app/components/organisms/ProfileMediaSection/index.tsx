@@ -1,27 +1,16 @@
-import Link from "next/link";
-import "./RecentsSection.styles.scss";
 import uppercaseFirst from "@app/helpers/uppercaseFirst";
-import CenteredGrid from "@app/components/atoms/CenteredGrid";
+import Link from "next/link";
+import "./ProfileMediaSection.styles.scss";
 
-interface RecentsSectionProps {
-  album: any;
-  book: any;
-  game: any;
-  movie: any;
-  tvshow: any;
+interface ProfileMediaSectionProps {
+  title?: string;
+  items: any[];
 }
 
-const RecentsSection = ({
-  album,
-  book,
-  game,
-  movie,
-  tvshow,
-}: RecentsSectionProps) => {
-  const items = [album, book, game, movie, tvshow].filter((item) => item);
+const ProfileMediaSection = ({ title, items }: ProfileMediaSectionProps) => {
   return (
-    <div className="recents-section">
-      <h1>Recents</h1>
+    <div className="media-section">
+      {title && <h1>{title}</h1>}
 
       <div className="posts-container">
         {items.map(({ media }) => {
@@ -45,4 +34,4 @@ const RecentsSection = ({
   );
 };
 
-export default RecentsSection;
+export default ProfileMediaSection;

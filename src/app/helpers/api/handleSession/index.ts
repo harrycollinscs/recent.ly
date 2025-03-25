@@ -3,7 +3,7 @@ import getSession from "@app/helpers/getSession";
 const handleSession = async (session: any) => {
   if (!session) {
     throw {
-      message: "You must be logged in to follow a user.",
+      message: "You must be logged in to do that!.",
       status: 401,
     };
   }

@@ -1,7 +1,8 @@
-.recents-section {
+.media-section {
   background-color: var(--background-primary);
   padding: 2rem;
   border-radius: 1.5rem;
+  flex: 1 1 100%;
 
   .posts-container {
     display: grid;
