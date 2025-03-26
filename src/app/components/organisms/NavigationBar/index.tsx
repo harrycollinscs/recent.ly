@@ -73,7 +73,7 @@ const NavigationBar = ({ user }: any) => {
           </Link>
         ))}
         <li key="Profile">
-          <Link href={`/users/${user.username}`} key={user.username}>
+          <Link href={`/users/${user.username}`} key={user.username} prefetch>
             Profile
           </Link>
         </li>

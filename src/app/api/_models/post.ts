@@ -8,7 +8,7 @@ const PostSchema = new mongoose.Schema({
     required: true,
   },
   createdAt: {
-    type: String,
+    type: Date,
     required: true,
   },
 });

@@ -31,7 +31,7 @@ a {
 .main-container {
   width: 100%;
   min-height: 100vh;
-  padding: 3rem;
+  padding: 3rem 10rem;
   background-color: var(--background-secondary);
 
   @media only screen and (max-width: 600px) {
@@ -53,16 +53,6 @@ a {
       font-size: 1.5rem;
     }
   }
-}
-
-.home-body {
-  margin-top: 4rem;
-  gap: 2rem;
-  width: 100%;
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 6fr 4fr;
-  align-items: center;
 }
 
 .title {

@@ -9,7 +9,7 @@ interface ProfileMediaSectionProps {
 
 const ProfileMediaSection = ({ title, items }: ProfileMediaSectionProps) => {
   return (
-    <div className="media-section">
+    <section className="media-section">
       {title && <h1>{title}</h1>}
 
       <div className="posts-container">
@@ -30,7 +30,7 @@ const ProfileMediaSection = ({ title, items }: ProfileMediaSectionProps) => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

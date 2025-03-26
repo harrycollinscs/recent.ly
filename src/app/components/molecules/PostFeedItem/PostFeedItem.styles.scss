@@ -1,0 +1,39 @@
+
+.post-feed-item {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  // border: 1px solid black;
+  list-style-type: none;
+
+  .user-image-container {
+    img {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 5rem;
+    }
+  }
+
+  .content-container {
+    .content-title {
+       display: flex;
+       flex-direction: row;
+
+       .prefix {
+        color: grey;
+       }
+    }
+
+    .post-details {
+      padding-top: 1rem;
+      width: 6rem;
+
+      img {
+        width: 6rem;
+        height: 8rem;
+        object-fit: cover;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}
