@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./PostFeedItem.styles.scss";
+import Image from "next/image";
 
 interface PostFeedItemProps {
   post: any;
@@ -29,7 +30,7 @@ const PostFeedItem = ({ post }: PostFeedItemProps) => {
         </div>
         <div className="post-details">
           <Link href={`/${media.type}/${media._id}`}>
-            <img src={media.image} />
+            <Image alt={`${media.type}: ${media.title}`} src={media.image} width={50} height={80} />
           </Link>
         </div>
       </div>

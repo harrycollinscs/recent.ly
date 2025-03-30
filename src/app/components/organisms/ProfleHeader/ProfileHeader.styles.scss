@@ -1,0 +1,82 @@
+.header {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5rem;
+  background-color: var(--background-primary);
+  padding: 2rem;
+  border-radius: 1.5rem;
+
+  @media only screen and (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @media only screen and (max-width: 700px) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+  }
+
+  .user {
+    grid-column-start: span 1;
+
+    img {
+      height: 5rem;
+      width: 5rem;
+      border-radius: 5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media only screen and (max-width: 700px) {
+      grid-column-start: span 1;
+    }
+  }
+
+  .follow-container {
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+    grid-column-start: span 2;
+
+    @media only screen and (max-width: 700px) {
+      grid-column-start: span 1;
+    }
+  }
+
+  .follow-cta-container {
+    display: flex;
+    flex-direction: column;
+    grid-column-start: span 1;
+    gap: 1rem;
+
+    .recents-container {
+      display: flex;
+      gap: 1rem;
+
+      img {
+        border-radius: 0.5rem;
+        object-fit: cover;
+      }
+    }
+
+    @media only screen and (max-width: 900px) {
+      grid-column-start: 2;
+      grid-row: 1;
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        width: 50%;
+      }
+    }
+
+    @media only screen and (max-width: 700px) {
+      grid-column-start: span 1;
+      grid-row: 3;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

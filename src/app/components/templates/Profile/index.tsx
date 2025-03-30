@@ -25,8 +25,7 @@ const Profile = async ({ user }: UserProfileProps) => {
   return (
     <>
       <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-        <ProfileHeader user={user} isOwnProfile={user?.isCurrentUser} />
-        <ProfileMediaSection title="Recents" items={recentsItems} />
+        <ProfileHeader user={user} isOwnProfile={user?.isCurrentUser} recentsItems={recentsItems} />
 
         <ProfileMediaSection title="All" items={all} />
 
