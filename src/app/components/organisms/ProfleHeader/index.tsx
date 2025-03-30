@@ -78,7 +78,7 @@ const ProfileHeader = ({
                 width={40}
                 height={60}
                 priority
-                // unoptimized={true}
+                key={`${media.type}: ${media.title}`}
               />
             ))}
           </div>
