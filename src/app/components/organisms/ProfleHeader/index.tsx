@@ -36,7 +36,6 @@ const ProfileHeader = ({
         <img src={user.image} />
         <h1>{user.username}</h1>
       </div>
-
       <div className="follow-container">
         <div>
           <h3>Following</h3>
@@ -68,22 +67,25 @@ const ProfileHeader = ({
             )}
           </>
         )}
-
-        {!!recentsItems?.length && (
-          <div style={{ display: "flex" }} className="recents-container">
-            {recentsItems.map(({ media }) => (
-              <Image
-                alt={`${media.type}: ${media.title}`}
-                src={media.image}
-                width={40}
-                height={60}
-                priority
-                key={`${media.type}: ${media.title}`}
-              />
-            ))}
-          </div>
-        )}
       </div>
+
+      {!!recentsItems?.length && (
+        <div
+          style={{ display: "flex" }}
+          className={`recents-container${isOwnProfile ? "-own-profile" : ""}`}
+        >
+          {recentsItems.map(({ media }) => (
+            <Image
+              alt={`${media.type}: ${media.title}`}
+              src={media.image}
+              width={40}
+              height={60}
+              priority
+              key={`${media.type}: ${media.title}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

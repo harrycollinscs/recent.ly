@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import NavigationBar from "./components/organisms/NavigationBar";
 import "./globals.css";
 import { auth } from "./lib/auth";
-import 'react-tiny-fab/dist/styles.css';
+import "react-tiny-fab/dist/styles.css";
 import AddPostFab from "./components/atoms/AddPostFab";
 
 const geistSans = Geist({
@@ -46,11 +46,9 @@ const RootLayout = async ({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {!!session && <NavigationBar user={session.user} />}
-          <main className="main-container">{children}</main>
-          {!!session && <AddPostFab />}
-        </div>
+        {!!session && <NavigationBar user={session.user} />}
+        <main className="main-container">{children}</main>
+        {!!session && <AddPostFab />}
       </body>
     </html>
   );

@@ -8,9 +8,8 @@ const AddPostFab = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <>
+    <div className="fab-container">
       <Fab
-        mainButtonStyles={{ backgroundColor: "#f5b5ff" }}
         icon={"+"}
         alwaysShowTitle={true}
         onClick={() => setIsModalOpen(true)}
@@ -22,7 +21,7 @@ const AddPostFab = () => {
       </Fab>
 
       <AddPostModal isOpen={isModalOpen} handleModalClose={() => setIsModalOpen(false)} />
-    </>
+    </div>
   );
 };
 

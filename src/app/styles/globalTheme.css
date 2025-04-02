@@ -11,11 +11,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-primary: #000;
-    --background-secondary: #121212;
+    --background-primary: #0e0e0e;
+    --background-secondary: #131313;
     --text-primary: #fff;
     --text-secondary: #b0b0b0;
-    --accent: #f5b5ff;
+    --accent: #b289ec;
     --link: #fff;
     --accent-link: #f5b5ff;
     --foreground: #ededed;

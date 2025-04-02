@@ -1,8 +1,12 @@
 .media-section {
-  background-color: var(--background-primary);
+  background-color: var(--background-secondary);
   padding: 2rem;
   border-radius: 1.5rem;
   flex: 1 1 100%;
+
+  @media only screen and (max-width: 600px) {
+    border-radius: 0;
+  }
 
   .posts-container {
     display: grid;
