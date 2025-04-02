@@ -136,16 +136,27 @@
   .recents-container-own-profile {
     height: 100%;
     display: flex;
-    align-items: flex-start;
+    justify-content: flex-end;
+    grid-row: 1;
+    grid-column: 2;
     gap: 1rem;
 
     img {
+      height: 3.5rem;
+      width: 2.5rem;
       border-radius: 0.5rem;
       object-fit: cover;
     }
-
+   
     @media only screen and (max-width: 700px) {
       grid-row: 4;
+      grid-column: 1;
+      justify-content: flex-start;
+      margin-left: 5rem;
+    }
+
+    @media only screen and (max-width: 550px) {
+      margin-left: 0;
     }
   }
 }
