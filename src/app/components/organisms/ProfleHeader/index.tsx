@@ -48,26 +48,24 @@ const ProfileHeader = ({
         </div>
       </div>
 
-      <div className="follow-cta-container">
-        {!isOwnProfile && (
-          <>
-            {!user.isFollowedByCurrentUser ? (
-              <CTA
-                text="Follow"
-                onClick={() => handleFollowAction(handleFollowUser)}
-                isLoading={isPending}
-              />
-            ) : (
-              <CTA
-                text="Unfollow"
-                appearance="secondary"
-                onClick={() => handleFollowAction(handleUnfollowUser)}
-                isLoading={isPending}
-              />
-            )}
-          </>
-        )}
-      </div>
+      {!isOwnProfile && (
+        <div className="follow-cta-container">
+          {!user.isFollowedByCurrentUser ? (
+            <CTA
+              text="Follow"
+              onClick={() => handleFollowAction(handleFollowUser)}
+              isLoading={isPending}
+            />
+          ) : (
+            <CTA
+              text="Unfollow"
+              appearance="secondary"
+              onClick={() => handleFollowAction(handleUnfollowUser)}
+              isLoading={isPending}
+            />
+          )}
+        </div>
+      )}
 
       {!!recentsItems?.length && (
         <div
