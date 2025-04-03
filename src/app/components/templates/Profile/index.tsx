@@ -23,23 +23,20 @@ const Profile = async ({ user }: UserProfileProps) => {
   }
 
   return (
-    <>
-      <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-        <ProfileHeader user={user} isOwnProfile={user?.isCurrentUser} recentsItems={recentsItems} />
-
+    <div className="profile-container">
+      <div className="profile-body-container">
+        <ProfileHeader
+          user={user}
+          isOwnProfile={user?.isCurrentUser}
+          recentsItems={recentsItems}
+        />
         <ProfileMediaSection title="All" items={all} />
-
-        <div style={{ display: "flex", gap: "2rem", width: "100%" }}>
-          <ProfileMediaSection title="Movies" items={movies} />
-          <ProfileMediaSection title="Tv Shows" items={tvshows} />
-        </div>
-
-        <div style={{ display: "flex", gap: "2rem", width: "100%" }}>
-          <ProfileMediaSection title="Games" items={games} />
-          <ProfileMediaSection title="Books" items={books} />
-        </div>
+        <ProfileMediaSection title="Movies" items={movies} />
+        <ProfileMediaSection title="Tv Shows" items={tvshows} />
+        <ProfileMediaSection title="Games" items={games} />
+        <ProfileMediaSection title="Books" items={books} />
       </div>
-    </>
+    </div>
   );
 };
 

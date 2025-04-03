@@ -1,24 +1,21 @@
 .media-section {
   background-color: var(--background-secondary);
   padding: 2rem;
-  border-radius: 1.5rem;
   flex: 1 1 100%;
+  border-radius: 1rem;
 
   @media only screen and (max-width: 600px) {
     border-radius: 0;
   }
 
   .posts-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 8rem);
     margin-top: 2rem;
-    gap: 2rem;
-    align-self: center;
-    justify-content: space-evenly;
-    justify-items: center;
-    align-content: space-evenly;
-    align-items: center;
-    
+    gap: 1rem;
+    display: flex;
+    overflow-x: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
     > a {
       width: auto;
       list-style-type: none;
@@ -47,5 +44,9 @@
         width: 8rem;
       }
     }
+  }
+
+  .posts-container ::-webkit-scrollbar {
+    display: none;
   }
 }
